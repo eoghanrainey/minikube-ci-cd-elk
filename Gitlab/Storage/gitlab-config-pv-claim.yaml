@@ -1,11 +1,11 @@
-# postgres-pv-claim.yaml
+# gitlab-pv-claim.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pv-claim
+  name: gitlab-config-pv-claim
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi

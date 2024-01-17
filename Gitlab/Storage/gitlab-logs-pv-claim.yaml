@@ -1,8 +1,8 @@
-# bitbucket-pv-claim.yaml
+# gitlab-pv-claim.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bitbucket-pv-claim
+  name: gitlab-logs-pv-claim
 spec:
   accessModes:
     - ReadWriteOnce

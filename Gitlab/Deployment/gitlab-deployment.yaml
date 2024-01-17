@@ -1,0 +1,53 @@
+# gitlab-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+  labels:
+    app: gitlab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ee:16.6.5-ee.0
+        ports:
+          - containerPort: 80
+            name: http
+          - containerPort: 443
+            name: https
+          - containerPort: 22
+            name: ssh
+        volumeMounts:
+          - name: gitlab-config
+            mountPath: /etc/gitlab
+          - name: gitlab-logs
+            mountPath: /var/log/gitlab
+          - name: gitlab-data
+            mountPath: /var/opt/gitlab
+        resources:
+          requests:
+            memory: "6Gi"
+            cpu: "3"
+          limits:
+            memory: "6Gi"
+            cpu: "3"
+      volumes:
+        - name: gitlab-config
+          persistentVolumeClaim:
+            claimName: gitlab-config-pv-claim
+        - name: gitlab-logs
+          persistentVolumeClaim:
+            claimName: gitlab-logs-pv-claim
+        - name: gitlab-data
+          persistentVolumeClaim:
+            claimName: gitlab-data-pv-claim
