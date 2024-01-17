@@ -1,0 +1,16 @@
+# bitbucket-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitbucket
+spec:
+  ports:
+  - name: http
+    port: 7990
+    targetPort: 7990
+  - name: ssh
+    port: 7999
+    targetPort: 7999
+  selector:
+    app: bitbucket
+  type: NodePort
